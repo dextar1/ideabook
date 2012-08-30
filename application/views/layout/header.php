@@ -7,7 +7,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-
+	<base href="<?php echo $baseUrl;?>">
   <!-- Use the .htaccess and remove these lines to avoid edge case issues.
        More info: h5bp.com/b/378 -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -37,6 +37,6 @@
 	<div id="container">
     <header>
 		<div id="header">
-			This is header
+			<img src="assets/img/logo.png" alt="ideabook"/>
 		</div>
     </header>

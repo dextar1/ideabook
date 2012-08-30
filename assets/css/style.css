@@ -211,6 +211,10 @@ td { vertical-align: top; }
    Author: Upanels Inc.
    ========================================================================== */
 
+#container {
+	width:900px;
+	margin:10px auto;
+}
 
 
 
