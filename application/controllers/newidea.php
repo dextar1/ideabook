@@ -24,20 +24,31 @@ class Newidea extends CI_Controller {
 	public function index()
 	{
 		$data = array();
-		$data['categories'] = '';
 		$this->load->model('newideamodel');
-		$categories = $this->newideamodel->getCategories();
-		echo '<pre>';
-		var_dump($categories);
-		echo '</pre>';
-		foreach($categories as $category){
-			$data['categories'][] = array(
-				'title' => $category->title,
-				'id' => $category->id
-			);
-		}
-		$data['working'] = 'it works :)';
+		$data['categories'] = $this->newideamodel->getCategories();
+		$data['inserted'] = '';
+		$data['error'] = '';
 		$this->load->view('newidea',$data);
+	}
+	public function addIdea(){
+		$this->load->model('newideamodel');
+		$data = array();
+		//print_r($this->input->post());
+		if($this->input->post('submit')){
+			$formdata['title'] = $this->input->post('newidea_title');
+			$formdata['description'] = $this->input->post('newidea_idea');
+			$formdata['category_id'] = $this->input->post('newidea_category');
+			$formdata['keywords'] = $this->input->post('newidea_keywords');
+			$formdata['tags'] = $this->input->post('newidea_tags');
+			
+			if($this->newideamodel->addIdea($formdata)){
+				$data['inserted'] = 'idea inserted';
+			} else {
+				$data['error'] = 'idea NOT inserted';
+			}
+			$data['categories'] = $this->newideamodel->getCategories();
+			$this->load->view('newidea',$data);
+		}
 	}
 }
 

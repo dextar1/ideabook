@@ -8,9 +8,13 @@ class newideamodel extends CI_Model  {
 		$result = $this->db->query('SELECT * FROM category');
 		if ($result->num_rows() > 0)
 		{
-			return $result->result();
+			return $result->result('array');
 		} else {
 			return false;
 		}
+	}
+	public function addIdea($data){
+		$query = $this->db->insert_string('ideas',$data);
+		return $this->db->query($query);
 	}
 }
