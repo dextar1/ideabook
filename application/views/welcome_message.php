@@ -1,4 +1,4 @@
-
+<?php if($loggedIn) echo 'yes'; else echo 'no';?>
     <div id="main" role="main">
 			<h1>Facebook stuff</h1>
 
