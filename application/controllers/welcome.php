@@ -75,6 +75,7 @@ class Welcome extends CI_Controller {
 		        } else {
 		            $data['login_url'] = $this->facebook->getLoginUrl();
 		        }
+		$data['completeURL'] = site_url("welcome/action/register");
 		$this->load->view('welcome_message',$data);
 		$this->load->view('layout/footer');
 	}
@@ -113,7 +114,8 @@ class Welcome extends CI_Controller {
 		} else {
 		$data['baseUrl'] = base_url();
 		$this->load->view('layout/header',$data);
-		$this->load->view($action);
+		$sData['completeURL'] = site_url('welcome/action/receivefb');
+		$this->load->view($action,$sData);
 		$this->load->view('layout/footer');
 		}
 	}

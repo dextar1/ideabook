@@ -49,7 +49,7 @@
 			
 							</script>
 			<fb:login-button
-			registration-url="http://localhost/ideabook/index.php/welcome/action/register"
+			registration-url="<?php echo $completeURL;?>"
 			 />
 			
 		</section>
