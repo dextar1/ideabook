@@ -71,7 +71,7 @@ class Welcome extends CI_Controller {
 		        if ($user) {
 		            try {
 		                $data['user_profile'] = $this->facebook->api('/me');
-										if($this->session->userdata['fb_id']) {
+										if(isset($this->session->userdata['fb_id'])) {
 											echo 'you are already logged in';
 										} else {
 											$this->session->set_userdata('fb_id',$user);
