@@ -64,6 +64,7 @@ class Welcome extends CI_Controller {
 			$this->session->unset_userdata('fb_id');
 		}
 		$data['baseUrl'] = base_url();
+		$this->session->set_userdata('fb_id',$user);
 		if($this->authentication->is_logged_in()) {
 			redirect('dashboard');
 		}

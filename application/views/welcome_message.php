@@ -10,6 +10,7 @@
 			  FB.getLoginStatus(function(response) {
 				  if (response.status === 'connected') {
 				$('.fb_iframe_widget ').hide();
+				
 					// this line is to hide the login button
 					//$('.fb_iframe_widget').hide();
 					//alert(response.authResponse.userID+' he/she is a fb user');
