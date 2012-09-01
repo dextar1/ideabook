@@ -51,8 +51,31 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$data['baseUrl'] = base_url();
+		
 		$this->load->view('layout/header',$data);
-		$this->load->view('welcome_message');
+		$fb_config = array(
+		            'appId'  => FACEBOOK_APP_ID,
+		            'secret' => FACEBOOK_SECRET
+		        );
+
+		        $this->load->library('facebook', $fb_config);
+						$data = null;
+		        $user = $this->facebook->getUser();
+						echo $user;
+		        if ($user) {
+		            try {
+		                $data['user_profile'] = $this->facebook->api('/me');
+		            } catch (FacebookApiException $e) {
+		                $user = null;
+		            }
+		        }
+
+		        if ($user) {
+		            $data['logout_url'] = $this->facebook->getLogoutUrl();
+		        } else {
+		            $data['login_url'] = $this->facebook->getLoginUrl();
+		        }
+		$this->load->view('welcome_message',$data);
 		$this->load->view('layout/footer');
 	}
 	
@@ -62,12 +85,28 @@ class Welcome extends CI_Controller {
 			$this->load->view('layout/header',$data);
 			if ($_REQUEST) {
 			  echo '<p>signed_request contents:</p>';
+			
 			  $response = $this->parse_signed_request($_REQUEST['signed_request'], 
 			                                   FACEBOOK_SECRET);
-			  echo '<pre>';
-			  $sdata['resp'] = $response;
-				$this->load->view($action,$sdata);
-			  echo '</pre>';
+			$query = $this->db->get_where('users', array('fb_uid' => $response['user_id']));
+			if($query->num_rows() > 0) {
+				echo 'you are already registered.';
+				exit(0);
+			}
+				$dataToInsert = array('name'=>$response['registration']['name'],
+															'email'=>$response['registration']['email'],
+															'gender'=>$response['registration']['gender'],
+															'birthday'=>$response['registration']['birthday'],
+															'location'=>$response['registration']['location']['name'],
+															'fb_uid'=>$response['user_id']);
+				//echo "<pre>";
+				//print_r($response);
+				//echo "</pre>";
+				$this->db->insert('users',$dataToInsert);
+				if($this->db->affected_rows() > 0) {
+					echo 'you have saved data';
+				}
+				$this->load->view($action,$data);
 			} else {
 			  echo '$_REQUEST is empty';
 			}
