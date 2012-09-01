@@ -32,6 +32,24 @@
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
        For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
   <script src="assets/js/libs/modernizr-2.0.6.min.js"></script>
+<script src="https://connect.facebook.net/en_US/all.js#appId=311371812294772&xfbml=1"></script>
+<script type="text/javascript" charset="utf-8">
+	window.fbAsyncInit = function() {
+		FB.Event.subscribe('auth.logout', function(r)
+		    {
+					FB.logout();
+					window.location.href = '<?php echo site_url("welcome/action/logout") ?>'
+					
+					alert('logout');
+		    }
+		);
+		FB.Event.subscribe('auth.login', function(r)
+		    {
+					alert('login');
+		    }
+		);
+	};
+</script>
 </head>
 <body>
 	<div id="container">

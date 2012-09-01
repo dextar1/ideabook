@@ -2,7 +2,7 @@
 			<h1>You are one step short to the whole World of Ideas</h1>
 		<section id="mainSection">
 			<div id="fb-root"></div>
-			<script src="https://connect.facebook.net/en_US/all.js#appId=311371812294772&xfbml=1"></script>
+			
 			<script type="text/javascript" charset="utf-8">
 			window.fbAsyncInit = function() {
 			  FB.init({appId: '311371812294772', status: false, cookie: true, xfbml: true});

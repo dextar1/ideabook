@@ -51,6 +51,7 @@ class Welcome extends CI_Controller {
 	    return base64_decode(strtr($input, '-_', '+/'));
 	}
 	
+	
 	public function index()
 	{
 		$fb_config = array(
@@ -60,11 +61,8 @@ class Welcome extends CI_Controller {
 
 		        $this->load->library('facebook', $fb_config);
 		$user = $this->facebook->getUser();
-		if($user == 0) {
-			$this->session->unset_userdata('fb_id');
-		}
 		$data['baseUrl'] = base_url();
-		$this->session->set_userdata('fb_id',$user);
+		
 		if($this->authentication->is_logged_in()) {
 			redirect('dashboard');
 		}
@@ -96,7 +94,18 @@ class Welcome extends CI_Controller {
 	}
 	
 	public function action($action = '') {
-		if($action == "receivefb") {
+		if($action == "logout") {
+			$fb_config = array(
+			            'appId'  => FACEBOOK_APP_ID,
+			            'secret' => FACEBOOK_SECRET
+			        );
+
+			        $this->load->library('facebook', $fb_config);
+			$this->facebook->destroySession();
+			$this->session->unset_userdata('fb_id');
+			redirect('welcome');
+		} 
+		elseif($action == "receivefb") {
 			$data['baseUrl'] = base_url();
 			$this->load->view('layout/header');
 			if ($_REQUEST) {
