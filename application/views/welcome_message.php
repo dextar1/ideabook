@@ -1,16 +1,5 @@
-<?php if($loggedIn) echo 'yes'; else echo 'no';?>
     <div id="main" role="main">
-			<h1>Facebook stuff</h1>
-
-			    <?php if (@$user_profile): ?>
-			        <pre>
-			            <?php echo print_r($user_profile, TRUE) ?>
-			        </pre>
-			        <a href="<?php echo $logout_url ?>">Logout of this thing</a>
-			    <?php else: ?>
-			        <h2>Welcome to this facebook thing, please login below</h2>
-			        <a href="<?php echo $login_url ?>">Login to this thing</a>
-			    <?php endif; ?>
+			<h1>You are one step short to the whole World of Ideas</h1>
 		<section id="mainSection">
 			<div id="fb-root"></div>
 			<script src="https://connect.facebook.net/en_US/all.js#appId=311371812294772&xfbml=1"></script>
@@ -20,10 +9,10 @@
 			  //Check if user is logged-in to facebook:
 			  FB.getLoginStatus(function(response) {
 				  if (response.status === 'connected') {
-				
+				$('.fb_iframe_widget ').hide();
 					// this line is to hide the login button
 					//$('.fb_iframe_widget').hide();
-					alert(response.authResponse.userID+' he/she is a fb user');
+					//alert(response.authResponse.userID+' he/she is a fb user');
 				    // the user is logged in and has authenticated your
 				    // app, and response.authResponse supplies
 				    // the user's ID, a valid access token, a signed
@@ -36,12 +25,12 @@
 				    // the user is logged in to Facebook, 
 				    // but has not authenticated your app
 				  } else {
-					alert('not logged in to FB');
 				    // the user isn't logged in to Facebook.
 				  }
 				 });
 				FB.Event.subscribe('auth.login', function(r)
 				    {
+					$('.fb_iframe_widget ').hide();
 				     	window.location.reload();  
 				    }
 				);	
