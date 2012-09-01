@@ -53,30 +53,32 @@ class Welcome extends CI_Controller {
 	
 	public function index()
 	{
-		$data['baseUrl'] = base_url();
-		if($this->authentication->is_logged_in()) {
-			$data['loggedIn'] = true;
-		} else {
-			$data['loggedIn'] = false;
-		}
-		$this->load->view('layout/header',$data);
 		$fb_config = array(
 		            'appId'  => FACEBOOK_APP_ID,
 		            'secret' => FACEBOOK_SECRET
 		        );
 
 		        $this->load->library('facebook', $fb_config);
+		$user = $this->facebook->getUser();
+		if($user == 0) {
+			$this->session->unset_userdata('fb_id');
+		}
+		$data['baseUrl'] = base_url();
+		if($this->authentication->is_logged_in()) {
+			redirect('dashboard');
+		}
+		$this->load->view('layout/header');
+		
 
-		        $user = $this->facebook->getUser();
 		        if ($user) {
 		            try {
 		                $data['user_profile'] = $this->facebook->api('/me');
-										if($this->session->userdata['fb_id']) {
-											echo 'you are already logged in';
-										} else {
+										if(!$this->authentication->is_logged_in()) {
+											
 											$this->session->set_userdata('fb_id',$user);
-											echo $this->session->userdata('fb_id');
+											
 										}
+										redirect('dashboard');
 		            } catch (FacebookApiException $e) {
 		                $user = null;
 		            }
@@ -95,16 +97,16 @@ class Welcome extends CI_Controller {
 	public function action($action = '') {
 		if($action == "receivefb") {
 			$data['baseUrl'] = base_url();
-			$this->load->view('layout/header',$data);
+			$this->load->view('layout/header');
 			if ($_REQUEST) {
-			  echo '<p>signed_request contents:</p>';
+			  //echo '<p>signed_request contents:</p>';
 			
 			  $response = $this->parse_signed_request($_REQUEST['signed_request'], 
 			                                   FACEBOOK_SECRET);
 			$query = $this->db->get_where('users', array('fb_uid' => $response['user_id']));
 			if($query->num_rows() > 0) {
-				echo 'you are already registered.';
-				exit(0);
+				//echo 'you are already registered.';
+				redirect('welcome');
 			}
 				$dataToInsert = array('name'=>$response['registration']['name'],
 															'email'=>$response['registration']['email'],
@@ -117,7 +119,7 @@ class Welcome extends CI_Controller {
 				//echo "</pre>";
 				$this->db->insert('users',$dataToInsert);
 				if($this->db->affected_rows() > 0) {
-					echo 'you have saved data';
+					redirect('welcome');
 				}
 				$this->load->view($action,$data);
 			} else {
@@ -125,7 +127,7 @@ class Welcome extends CI_Controller {
 			}
 		} else {
 		$data['baseUrl'] = base_url();
-		$this->load->view('layout/header',$data);
+		$this->load->view('layout/header');
 		$sData['completeURL'] = site_url('welcome/action/receivefb');
 		$this->load->view($action,$sData);
 		$this->load->view('layout/footer');

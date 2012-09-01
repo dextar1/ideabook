@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Authentication {
+class Dashboard extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,17 +20,17 @@ class Authentication {
 	
 	//
 	//
-	function is_logged_in() {
-		$CI =& get_instance();
-		$CI->load->library('session');
-	   $user = $CI->session->userdata('fb_id');
-	   if (!$user) {
-	      return false; 
-	   } 
-	   else { 
-	      return true;
-	   }
-
+	function __construct() {
+		parent::__construct();
+		if(!$this->authentication->is_logged_in()) {
+			redirect('welcome');
+		}
+	}
+	public function index() {
+		
+		$this->load->view('layout/header');
+		$this->load->view('dashboard');
+		$this->load->view('layout/footer');
 	}
 }
 
