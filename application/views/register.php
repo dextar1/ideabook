@@ -1,6 +1,6 @@
 <iframe src="https://www.facebook.com/plugins/registration?
              client_id=311371812294772&
-             redirect_uri=http://localhost/ideabook/index.php/welcome/action/receivefb&
+             redirect_uri=<?php echo $completeURL;?>&
              fields=name,birthday,gender,location,email"
         scrolling="auto"
         frameborder="no"
