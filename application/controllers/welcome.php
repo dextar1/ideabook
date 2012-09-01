@@ -21,7 +21,10 @@ class Welcome extends CI_Controller {
 	
 	//
 	//
-
+	function __construct()
+	    {
+	        parent::__construct();
+	    }
 	function parse_signed_request($signed_request, $secret) {
 	  list($encoded_sig, $payload) = explode('.', $signed_request, 2); 
 
@@ -51,7 +54,11 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$data['baseUrl'] = base_url();
-		
+		if($this->authentication->is_logged_in()) {
+			$data['loggedIn'] = true;
+		} else {
+			$data['loggedIn'] = false;
+		}
 		$this->load->view('layout/header',$data);
 		$fb_config = array(
 		            'appId'  => FACEBOOK_APP_ID,
@@ -59,12 +66,17 @@ class Welcome extends CI_Controller {
 		        );
 
 		        $this->load->library('facebook', $fb_config);
-						$data = null;
+
 		        $user = $this->facebook->getUser();
-						echo $user;
 		        if ($user) {
 		            try {
 		                $data['user_profile'] = $this->facebook->api('/me');
+										if($this->session->userdata['fb_id']) {
+											echo 'you are already logged in';
+										} else {
+											$this->session->set_userdata('fb_id',$user);
+											echo $this->session->userdata('fb_id');
+										}
 		            } catch (FacebookApiException $e) {
 		                $user = null;
 		            }
