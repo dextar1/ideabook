@@ -20,7 +20,11 @@ class Idea extends CI_Controller {
 	
 	//
 	//
-	
+   public function __construct()
+   {
+		parent::__construct();
+		$this->load->model('ideamodel');
+   }
 	public function index()
 	{
 		redirect('idea/search');
@@ -34,7 +38,7 @@ class Idea extends CI_Controller {
 		$this->load->view('layout/footer',$data);
 	}
 	public function addIdea(){
-		$this->load->model('ideamodel');
+		
 		$data = array();
 		//print_r($this->input->post());
 		if($this->input->post('submit')){
@@ -59,6 +63,16 @@ class Idea extends CI_Controller {
 		$data['ideas'] = $this->ideamodel->getideas();
 
 		$this->load->view('viewideas',$data);
+	}
+	public function show() {
+		$data = $this->authentication->giveMeHeaderData();
+		$data['appID'] = $this->facebook->getAppID();
+		$data['search'] = false;
+		$this->load->view('layout/header',$data);
+		$data['searchQuery'] = $this->input->post('q');
+		$this->load->view('result',$data);
+		$this->load->view('layout/footer',$data);
+	
 	}
 }
 
