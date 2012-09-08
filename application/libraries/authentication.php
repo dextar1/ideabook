@@ -22,8 +22,16 @@ class Authentication {
 	//
 	function is_logged_in() {
 		$CI =& get_instance();
-		$CI->load->library('session');
-	   $user = $CI->session->userdata('fb_id');
+	   $user = $CI->facebook->getUser();
+		if ($user) {
+		  try {
+		    // Proceed knowing you have a logged in user who's authenticated.
+		    $user_profile = $CI->facebook->api('/me');
+		  } catch (FacebookApiException $e) {
+		    error_log($e);
+		    $user = null;
+		  }
+		}
 	   if (!$user) {
 	      return false; 
 	   } 

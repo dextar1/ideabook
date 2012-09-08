@@ -1,35 +1,31 @@
-<footer>
-	Footer
-</footer>
-</div> <!--! end of #container -->
-  <!-- JavaScript at the bottom for fast page loading -->
-
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="assets/js/libs/jquery-1.6.2.min.js"><\/script>')</script>
-
-
-  <!-- scripts concatenated and minified via ant build script-->
-  <script defer src="assets/js/plugins.js"></script>
-  <script defer src="assets/js/script.js"></script>
-  <!-- end scripts-->
-
-	
-  <!-- Change UA-XXXXX-X to be your site's ID -->
-  <script>
-    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
-    Modernizr.load({
-      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
+</div>
+<div id="fb-root"></div>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+	$(function(){
+		$('input[name=q]').focus();
+	});
+	window.fbAsyncInit = function() {
+    FB.init({
+      appId: '<?php echo $appID; ?>',
+      cookie: true,
+      xfbml: true,
+      oauth: true
     });
-  </script>
-
-
-  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
-       chromium.org/developers/how-tos/chrome-frame-getting-started -->
-  <!--[if lt IE 7 ]>
-    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-  <![endif]-->
-  
+    FB.Event.subscribe('auth.login', function(response) {
+			window.location.reload();
+    });
+    FB.Event.subscribe('auth.logout', function(response) {
+			window.location.reload();
+    });
+  };
+  (function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+  }());
+</script>
 </body>
 </html>

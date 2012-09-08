@@ -1,60 +1,66 @@
-<!doctype html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-	<base href="<?php echo base_url();?>">
-  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
-       More info: h5bp.com/b/378 -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-  <title>IdeaBook</title>
-  <meta name="description" content="IdeaBook">
-  <meta name="author" content="Upanels Inc.">
-
-  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
-
-  <!-- CSS: implied media=all -->
-  <!-- CSS concatenated and minified via ant build script-->
-  <link rel="stylesheet" href="assets/css/style.css">
-  <!-- end CSS-->
-
-  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
-
-  <!-- All JavaScript at the bottom, except for Modernizr / Respond.
-       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
-       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="assets/js/libs/modernizr-2.0.6.min.js"></script>
-<script src="https://connect.facebook.net/en_US/all.js#appId=311371812294772&xfbml=1"></script>
-<script type="text/javascript" charset="utf-8">
-	window.fbAsyncInit = function() {
-		FB.Event.subscribe('auth.logout', function(r)
-		    {
-					FB.logout();
-					window.location.href = '<?php echo site_url("welcome/action/logout") ?>'
-					
-					alert('logout');
-		    }
-		);
-		FB.Event.subscribe('auth.login', function(r)
-		    {
-					alert('login');
-		    }
-		);
-	};
-</script>
-</head>
-<body>
-	<div id="container">
-    <header>
-		<div id="header">
-			<img src="assets/img/logo.png" alt="ideabook"/>
+<!DOCTYPE html>
+<html>
+  <head>
+	<base href="<?php echo base_url();?>" />
+	<style type="text/css" media="screen">
+		body {
+			background-image:url('assets/img/high_res_img.jpg');
+			background-attachment:fixed;
+			background-size:cover;
+			background-position:50% 50%;
+		}
+		.container {
+			width:960px;
+		}
+	</style>
+	<meta charset="utf-8">
+    <title>ideabook - a service to keep ideas</title>
+    <!-- Bootstrap -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="assets/css/customstyle.css" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+	<div class="container">
+		<!-- Navbar
+		    ================================================== -->
+		    <div class="navbar navbar-inverse navbar-fixed-top">
+		      <div class="navbar-inner" style="max-height:40px">
+		        <div class="container">
+		          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		          </button>
+		          <a class="brand" style="padding-bottom:8px; padding-top:8px" href="./index.html"><i class="icon-home icon-white" style="margin-top:5px"></i> ideabook</a>
+		          <div class="nav-collapse collapse">
+		            <ul class="nav">
+		              <li class="active">
+		                <a href="./index.html"><i class="icon-search icon-white"></i> Explore Ideas</a>
+		              </li>
+		              <li class="">
+		                <a href="./getting-started.html"><i class="icon-pencil icon-white"></i> New Idea</a>
+		              </li>
+		              
+		              <li class="">
+		                <a href="./scaffolding.html"><i class="icon-book icon-white"></i> My ideabook</a>
+		              </li>
+		            </ul>
+								<?php if($search) {?>
+								<form class="navbar-search pull-right" method="GET">
+								  <input type="text" name="q" class="search-query" placeholder="Search Ideas">
+								</form>
+								<?php } ?>
+								<ul class="nav pull-right">
+									
+									<?php echo $user_name;?>
+									<li><?php echo $url;?></li>
+								</ul>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+	
+		<div class="blankSpace">
+			
 		</div>
-    </header>

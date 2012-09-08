@@ -1,0 +1,17 @@
+.blankSpace {
+	height:40px;
+}
+#searchBox {
+	margin:0px auto;
+	width:450px;
+	margin-top:150px;
+	color:white;
+}
+#searchBox .hint {
+	text-align:center;
+	margin-top:10px;
+}
+#searchBox .hint .btn {
+	padding-left:30px;
+	padding-right:30px;
+}
