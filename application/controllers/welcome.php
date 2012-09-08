@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-include_once('application/libraries/facebook.php');
 class Welcome extends CI_Controller {
 
 	/**
@@ -18,27 +17,15 @@ class Welcome extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	
-	private $isLoggedIn = 'no';
 	public function index()
 	{
-		Facebook::$CURL_OPTS[CURLOPT_SSL_VERIFYPEER] = false;
-		Facebook::$CURL_OPTS[CURLOPT_SSL_VERIFYHOST] = 2;
+		
 		// Login or logout url will be needed depending on current user state.
-		if ($this->authentication->is_logged_in()) {
-			$params = array( 'next' => 'http://localhost/ideabook/index.php/welcome/killsession' );
-			$prof = $this->facebook->api('/me');  
-			$data['url'] = '<a href="'.$this->facebook->getLogoutUrl($params).'">Logout</a>';
-			$user_prof = $this->facebook->api('/me');
-			$data['user_name'] = '<li><a>'.$prof['name'].'</a></li>';
-		} else {
-		  $data['url'] = '<a href="'.$this->facebook->getLoginUrl().'">Login</a>';
-		$data['user_name'] = '';
-		}
+		$data = $this->authentication->giveMeHeaderData();
 		$data['appID'] = $this->facebook->getAppID();
 		$data['search'] = false;
 		$this->load->view('layout/header',$data);
 		$this->load->view('home');
-		$data['appId'] = $this->facebook->getAppId();
 		$this->load->view('layout/footer',$data);
 	}
 	public function killsession() {

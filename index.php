@@ -1,5 +1,5 @@
 <?php
-
+include_once('application/libraries/facebook.php');
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -27,7 +27,8 @@
  * Different environments will require different levels of error reporting.
  * By default development will show errors but testing and live will hide them.
  */
-
+Facebook::$CURL_OPTS[CURLOPT_SSL_VERIFYPEER] = false;
+Facebook::$CURL_OPTS[CURLOPT_SSL_VERIFYHOST] = 2;
 if (defined('ENVIRONMENT'))
 {
 	switch (ENVIRONMENT)

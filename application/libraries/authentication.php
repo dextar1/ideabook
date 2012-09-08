@@ -20,7 +20,7 @@ class Authentication {
 	
 	//
 	//
-	function is_logged_in() {
+	public function is_logged_in() {
 		$CI =& get_instance();
 		$user = $CI->facebook->getUser();
 		if ($user) {
@@ -39,6 +39,20 @@ class Authentication {
 	      return true;
 	   }
 
+	}
+	public function giveMeHeaderData() {
+		$CI =& get_instance();
+		if ($this->is_logged_in()) {
+			
+			$params = array( 'next' => 'http://localhost/ideabook/index.php/welcome/killsession' );
+			$prof = $CI->facebook->api('/me');  
+			$data['url'] = '<a href="'.$CI->facebook->getLogoutUrl($params).'">Logout</a>';
+			$data['user_name'] = '<li><a>'.$prof['name'].'</a></li>';
+		} else {
+		  $data['url'] = '<a href="'.$CI->facebook->getLoginUrl().'">Login</a>';
+			$data['user_name'] = '';
+		}
+		return $data;
 	}
 }
 

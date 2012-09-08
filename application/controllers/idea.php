@@ -23,12 +23,15 @@ class Idea extends CI_Controller {
 	
 	public function index()
 	{
-		$data = array();
-		$this->load->model('ideamodel');
-		$data['categories'] = $this->ideamodel->getCategories();
-		$data['inserted'] = '';
-		$data['error'] = '';
-		$this->load->view('idea',$data);
+		redirect('idea/search');
+	}
+	public function search() {
+		$data = $this->authentication->giveMeHeaderData();
+		$data['appID'] = $this->facebook->getAppID();
+		$data['search'] = false;
+		$this->load->view('layout/header',$data);
+		$this->load->view('home');
+		$this->load->view('layout/footer',$data);
 	}
 	public function addIdea(){
 		$this->load->model('ideamodel');
