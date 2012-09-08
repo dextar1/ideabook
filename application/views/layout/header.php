@@ -36,7 +36,7 @@
 		          <div class="nav-collapse collapse">
 		            <ul class="nav">
 		              <li class="active">
-		                <a href="./index.html"><i class="icon-search icon-white"></i> Explore Ideas</a>
+		                <?php echo anchor('idea/search','<i class="icon-search icon-white"></i> Explore Ideas')?>
 		              </li>
 		              <li class="">
 		                <a href="./getting-started.html"><i class="icon-pencil icon-white"></i> New Idea</a>
