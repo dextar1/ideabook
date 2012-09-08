@@ -1,6 +1,5 @@
 </div>
 <div id="fb-root"></div>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script type="text/javascript" charset="utf-8">
 	$(function(){
