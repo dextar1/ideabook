@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+include_once('application/libraries/facebook.php');
 class Welcome extends CI_Controller {
 
 	/**
@@ -21,7 +21,8 @@ class Welcome extends CI_Controller {
 	private $isLoggedIn = 'no';
 	public function index()
 	{
-		
+		Facebook::$CURL_OPTS[CURLOPT_SSL_VERIFYPEER] = false;
+		Facebook::$CURL_OPTS[CURLOPT_SSL_VERIFYHOST] = 2;
 		// Login or logout url will be needed depending on current user state.
 		if ($this->authentication->is_logged_in()) {
 			$params = array( 'next' => 'http://localhost/ideabook/index.php/welcome/killsession' );

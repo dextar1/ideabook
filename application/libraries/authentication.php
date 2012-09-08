@@ -22,17 +22,17 @@ class Authentication {
 	//
 	function is_logged_in() {
 		$CI =& get_instance();
-	   $user = $CI->facebook->getUser();
+		$user = $CI->facebook->getUser();
 		if ($user) {
 		  try {
-		    // Proceed knowing you have a logged in user who's authenticated.
+			// Proceed knowing you have a logged in user who's authenticated.
 		    $user_profile = $CI->facebook->api('/me');
-		  } catch (FacebookApiException $e) {
+			} catch (FacebookApiException $e) {
 		    error_log($e);
-		    $user = null;
+			$user = null;
 		  }
 		}
-	   if (!$user) {
+		if (!$user) {
 	      return false; 
 	   } 
 	   else { 
