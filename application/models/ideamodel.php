@@ -32,17 +32,20 @@ class ideamodel extends CI_Model  {
 	public function getSearchResult($query, $limit, $start) {
 
 		$query = '%'.$query.'%';
-		$sql = "SELECT * FROM ideas WHERE tag LIKE ? OR title LIKE ? OR keywords LIKE ?"; 
+		$sql = "SELECT * FROM ideas WHERE tag LIKE ? OR title LIKE ? OR keywords LIKE ? LIMIT "+$start+","+$limit; 
+		echo $sql;
 		$result = $this->db->query($sql, array($query,$query,$query));
 		
 		if ($result->num_rows() > 0) {
+			/*
 			$i = 1;
 			while($i <= $limit && $start != $result->num_rows()) {
 				$data[] = $result->row_array($start);
 				$start++;
 				$i++;
 			}
-			return $data;
+			*/
+			return $result->result_array();
 		} else {
 			return false;
 		}
