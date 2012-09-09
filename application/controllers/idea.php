@@ -70,8 +70,9 @@ class Idea extends CI_Controller {
 		$config['last_tag_close'] = '</li>';		
 		$this->pagination->initialize($config);
 		$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-		$data['queryResult'] = $this->ideamodel->getSearchResult($query,$config['per_page'],$page);
+		$data['queryResult'] = $this->ideamodel->getSearchResult($query,$config['per_page'],intval($page));
 		$data["links"] = $this->pagination->create_links();
+		$data["value"] = $query;
 		$this->load->view('layout/header',$data);
 		$this->load->view('search_result',$data);
 		$this->load->view('layout/footer',$data);
