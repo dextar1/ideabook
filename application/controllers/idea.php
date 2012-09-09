@@ -29,6 +29,7 @@ class Idea extends CI_Controller {
 		$data = $this->authentication->giveMeHeaderData();
 		$data['appID'] = $this->facebook->getAppID();
 		$data['search'] = false;
+		$data['actionURL'] = site_url().'/'.$this->router->fetch_class().'/searchResult';
 		$this->load->view('layout/header',$data);
 		$this->load->view('home');
 		$this->load->view('layout/footer',$data);
@@ -59,6 +60,16 @@ class Idea extends CI_Controller {
 		$data['ideas'] = $this->ideamodel->getideas();
 
 		$this->load->view('viewideas',$data);
+	}
+	public function searchResult() {
+		$this->load->model('ideamodel');
+		$data = $this->authentication->giveMeHeaderData();
+		$data['appID'] = $this->facebook->getAppID();
+		$data['search'] = false;
+		$data['query'] = $this->input->post('q');
+		$this->load->view('layout/header',$data);
+		$this->load->view('search_result',$data);
+		$this->load->view('layout/footer',$data);
 	}
 }
 

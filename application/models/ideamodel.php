@@ -28,4 +28,8 @@ class ideamodel extends CI_Model  {
 			return false;
 		}
 	}
+	
+	public function getSearchResult() {
+	
+	}
 }
