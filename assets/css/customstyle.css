@@ -1,3 +1,6 @@
+.clear {
+	clear:both;
+}
 .blankSpace {
 	height:40px;
 }
@@ -22,16 +25,64 @@
 .transparent_bg {
 	background: rgba(255, 255, 255, 0.5);
 	width: 900px;
-	min-height: 400px;
-	margin-top: 100px;
+	height: 455px;
+	margin-top: 65px;
 	padding: 20px;
+	position: relative;
 }
 .transparent_bg p {
-	color: #333;
+	color: #555;
 }
 .searchResult {
-	height: 330px;
 	width: 900px;
-	overflow-y: scroll;
 	margin-top: 20px;
+}
+.searchItem {
+	height: 100px;
+	margin-bottom: 10px;
+}
+.searchItem .leftBox {
+	float: left;
+	width: 100px;
+	margin-right: 10px;
+}
+.searchItem .leftBox img{
+	width: 100px;
+	height: 100px;
+}
+.searchItem .rightBox {
+	float: left;
+	width: 770px;
+	
+}
+.searchItem .rightBox h2 {
+	margin: 0px;
+	font-size: 18px;
+	line-height: 20px;
+	margin-bottom: 1px;
+}
+.searchItem .rightBox h4 {
+	margin: 0px;
+	font-size: 12px;
+	line-height: 15px;
+}
+.searchItem .rightBox h5 {
+	margin: 0px;
+	font-size: 10px;
+	line-height: 15px;
+}
+.searchItem .rightBox p {
+	line-height: 17px;
+}
+.seperator {
+	margin: 0px;
+	margin-bottom: 10px;
+	border-top: 2px solid #EEE;
+	border-bottom: 0px;
+}
+.transparent_bg .pagination {
+	margin: 0px;
+	position: absolute;
+	right: 17px;
+	bottom: 7px;
 }

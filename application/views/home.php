@@ -28,9 +28,9 @@
 				$('#searchBox .alert').stop(true,true).fadeIn().delay(2000).fadeOut();
 				return false;
 			}
-			$('#searchBox').animate({
-				marginTop: '-=150'
-			});
+			// $('#searchBox').animate({
+				// marginTop: '-=150'
+			// });
 			}
 			//return false;
 		});
