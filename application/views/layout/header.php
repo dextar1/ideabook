@@ -15,6 +15,7 @@
 	</style>
 	<meta charset="utf-8">
     <title>ideabook - a service to keep ideas</title>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
 		<link href="assets/css/customstyle.css" rel="stylesheet">
