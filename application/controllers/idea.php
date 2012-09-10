@@ -46,32 +46,38 @@ class Idea extends CI_Controller {
 		$data['appID'] = $this->facebook->getAppID();
 		$data['search'] = true;
 		$query = $q;
-		$config['base_url'] = site_url('idea/search').'/'.$query;
-		$config['total_rows'] = $this->ideamodel->countSearchResult($query);
-		$config['per_page'] = 3;
-		$config["uri_segment"] = 4;
-		$config['full_tag_open'] = '<ul>';
-		$config['full_tag_close'] = '</ul>';
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['cur_tag_open'] = '<li class="active"><a href="javascript:void();">';
-		$config['cur_tag_close'] = '</a></li>';
-		$config['next_link'] = 'Next';
-		$config['next_tag_open'] = '<li>';
-		$config['next_tag_close'] = '</li>';
-		$config['prev_link'] = 'Prev';
-		$config['prev_tag_open'] = '<li>';
-		$config['prev_tag_close'] = '</li>';
-		$config['first_link'] = 'First';
-		$config['first_tag_open'] = '<li>';
-		$config['first_tag_close'] = '</li>';
-		$config['last_link'] = 'Last';
-		$config['last_tag_open'] = '<li>';
-		$config['last_tag_close'] = '</li>';		
-		$this->pagination->initialize($config);
-		$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-		$data['queryResult'] = $this->ideamodel->getSearchResult($query,$config['per_page'],intval($page));
-		$data["links"] = $this->pagination->create_links();
+		$totalRecords = $this->ideamodel->countSearchResult($query);
+		if($totalRecords == 0){
+			$data['noRecords'] = true;
+		}else{
+			$data['noRecords'] = false;
+			$config['base_url'] = site_url('idea/search').'/'.$query;
+			$config['total_rows'] = $totalRecords;
+			$config['per_page'] = 3;
+			$config["uri_segment"] = 4;
+			$config['full_tag_open'] = '<ul>';
+			$config['full_tag_close'] = '</ul>';
+			$config['num_tag_open'] = '<li>';
+			$config['num_tag_close'] = '</li>';
+			$config['cur_tag_open'] = '<li class="active"><a href="javascript:void();">';
+			$config['cur_tag_close'] = '</a></li>';
+			$config['next_link'] = 'Next';
+			$config['next_tag_open'] = '<li>';
+			$config['next_tag_close'] = '</li>';
+			$config['prev_link'] = 'Prev';
+			$config['prev_tag_open'] = '<li>';
+			$config['prev_tag_close'] = '</li>';
+			$config['first_link'] = 'First';
+			$config['first_tag_open'] = '<li>';
+			$config['first_tag_close'] = '</li>';
+			$config['last_link'] = 'Last';
+			$config['last_tag_open'] = '<li>';
+			$config['last_tag_close'] = '</li>';		
+			$this->pagination->initialize($config);
+			$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+			$data['queryResult'] = $this->ideamodel->getSearchResult($query,$config['per_page'],intval($page));
+			$data["links"] = $this->pagination->create_links();
+		}
 		$data["value"] = $query;
 		$this->load->view('layout/header',$data);
 		$this->load->view('search_result',$data);
@@ -113,43 +119,8 @@ class Idea extends CI_Controller {
 		$data['searchQuery'] = $this->input->post('q');
 		$this->load->view('result',$data);
 		$this->load->view('layout/footer',$data);
-	
-	public function searchResult() {
-		$this->load->model('ideamodel');
-		$data = $this->authentication->giveMeHeaderData();
-		$data['appID'] = $this->facebook->getAppID();
-		$data['search'] = true;
-		$query = trim($this->input->get('q'));
-		$config['base_url'] = site_url().'/'.$this->router->fetch_class().'/'.$this->router->fetch_method();
-		$config['total_rows'] = $this->ideamodel->countSearchResult($query);
-		$config['per_page'] = 3;
-		$config["uri_segment"] = 3;
-		$config['full_tag_open'] = '<ul>';
-		$config['full_tag_close'] = '</ul>';
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['cur_tag_open'] = '<li class="active"><a href="javascript:void();">';
-		$config['cur_tag_close'] = '</a></li>';
-		$config['next_link'] = 'Next';
-		$config['next_tag_open'] = '<li>';
-		$config['next_tag_close'] = '</li>';
-		$config['prev_link'] = 'Prev';
-		$config['prev_tag_open'] = '<li>';
-		$config['prev_tag_close'] = '</li>';
-		$config['first_link'] = 'First';
-		$config['first_tag_open'] = '<li>';
-		$config['first_tag_close'] = '</li>';
-		$config['last_link'] = 'Last';
-		$config['last_tag_open'] = '<li>';
-		$config['last_tag_close'] = '</li>';		
-		$this->pagination->initialize($config);
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; 
-		$data['queryResult'] = $this->ideamodel->getSearchResult($query,$config['per_page'],$page);
-		$data["links"] = $this->pagination->create_links();
-		$this->load->view('layout/header',$data);
-		$this->load->view('search_result',$data);
-		$this->load->view('layout/footer',$data);
 	}
+
 }
 
 /* End of file welcome.php */

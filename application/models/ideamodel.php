@@ -36,14 +36,6 @@ class ideamodel extends CI_Model  {
 		$result = $this->db->query($sql, array($query,$query,$query,$start,$limit));
 		
 		if ($result->num_rows() > 0) {
-			/*
-			$i = 1;
-			while($i <= $limit && $start != $result->num_rows()) {
-				$data[] = $result->row_array($start);
-				$start++;
-				$i++;
-			}
-			*/
 			return $result->result_array();
 		} else {
 			return false;
